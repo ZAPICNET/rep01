@@ -45,6 +45,12 @@
     const version = document.getElementById('version');
     
     ipcRenderer.send('app_version');
+    ipcRenderer.send('consoleLog');
+
+    ipcRenderer.on('consoleLog', (event, arg) => {
+      console.log("consoleLog -> " + arg.text);
+    });
+
     ipcRenderer.on('app_version', (event, arg) => {
       ipcRenderer.removeAllListeners('app_version');
       version.innerText = 'Version ' + arg.version;
